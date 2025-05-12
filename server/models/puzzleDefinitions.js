@@ -36,13 +36,13 @@ module.exports = {
     ],
      
   },
-  'final': {
-    title: '🎼 Final Puzzle – Riddle Lock on Symphony Database',
-    riddle: '“Where time meets tone, the key is in the fifth.”',
-    clue: 'Clue from Grace’s journal: “Maestro Veil believed in C minor and timestamp ciphers.”',
-    queries: [
-      { text: "SELECT * FROM hidden_symphony WHERE key_signature = 'C minor' AND SUBSTRING(note_time, 6, 2) = '05';" },
-    ],
-    // Define expected results in queryController
-  },
+  // 'final': {
+  //   title: '🎼 Final Puzzle – Riddle Lock on Symphony Database',
+  //   riddle: '“Where time meets tone, the key is in the fifth.”',
+  //   clue: 'Clue from Grace’s journal: “Maestro Veil believed in C minor and timestamp ciphers.”',
+  //   queries: [
+  //     { text: "SELECT * FROM hidden_symphony WHERE key_signature = 'C minor' AND SUBSTRING(note_time, 6, 2) = '05';" },
+  //   ],
+  //   // Define expected results in queryController
+  // },
 };

@@ -163,7 +163,8 @@ import Notebook from '../components/Notebook';
 
 export default function Puzzle3Branch1() {
   const navigate = useNavigate();
-  const { gameTime, deductTime, addNotebookEntry, goToNextPuzzle } = useContext(GameContext);
+  // const { gameTime, deductTime, addNotebookEntry, goToNextPuzzle } = useContext(GameContext);
+  const { gameTime, deductTime, addNotebookEntry, updatePuzzle, currentBranch, notebookEntries, updateBranch } = useContext(GameContext);
   const [isNotebookOpen, setIsNotebookOpen] = useState(false);
   const [branchData, setBranchData] = useState(null);
   const [selectedQuery, setSelectedQuery] = useState(null);
@@ -202,12 +203,22 @@ export default function Puzzle3Branch1() {
 
     setQueryResult({ loading: true, data: null, error: null });
     setHasQueryExecuted(true); // Set to true when query is executed
+    // try {
+    //   const result = await executeQuery(selectedQuery);
+    //   setQueryResult({ loading: false, data: result, error: null });
     try {
-      const result = await executeQuery(selectedQuery);
+      const result = await executeQuery(selectedQuery, {
+        puzzleId: 3, // ✅ Explicitly set puzzleId to 2 for the branch
+        currentBranch: currentBranch, // ✅ Send the currentBranch from context
+      });
       setQueryResult({ loading: false, data: result, error: null });
 
       if (result?.notebookUpdate) {
-        addNotebookEntry({ title: 'Archivist Branch Update', content: result.notebookUpdate });
+       addNotebookEntry({ // ✅ Format as an object with title and content
+          title: `Puzzle 3 - Branch`, // Or a more specific title
+
+          content: result.notebookUpdate,
+        });
       }
       if (result?.next) {
         navigate(result.next);
@@ -324,7 +335,8 @@ export default function Puzzle3Branch1() {
             </div>
           )}
         </div>
-        <Notebook isOpen={isNotebookOpen} />
+        {/* ✅ Pass notebookEntries to the Notebook component */}
+        <Notebook isOpen={isNotebookOpen} entries={notebookEntries} />
       </div>
     </div>
   );
